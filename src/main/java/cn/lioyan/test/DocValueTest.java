@@ -41,7 +41,7 @@ public class DocValueTest
         //
         //        // 1. create the index
         Directory directory = FSDirectory.open(Paths.get("tempPath"));
-//
+
 //        IndexWriterConfig config = new IndexWriterConfig(analyzer);
 //        config.setUseCompoundFile(false);
 //        IndexWriter w = new IndexWriter(directory, config);
