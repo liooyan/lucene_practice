@@ -15,7 +15,7 @@ import org.apache.lucene.store.DataInput;
  *
  * 2 {@link  org.apache.lucene.store.IndexInput#slice(String, long, long)}
  *      截取指定位置的 输入流，作为一个新的输入流
- *
+ *      相当于在原来的基础上重新定位了一下
  * @author com.lioyan
  * @since 2023/7/17  17:54
  */
