@@ -55,6 +55,8 @@ public class TokenStream
                 System.out.print("[" + cta + "]");
                 System.out.print("[" + termFrequency + "]");
                 System.out.print("[" + positionIncrement + "]");
+                System.out.print("[" + start + "]");
+                System.out.print("[" + end + "]");
                 System.out.println();
             }
             stream.end();
