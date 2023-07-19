@@ -10,8 +10,17 @@ import java.io.StringReader;
 
 
 /**
- * {@link TokenStream}
+ * {@link org.apache.lucene.analysis.TokenStream}
+ * 分词后 的 token 流，
+ * 核心方法
+ * 将流推进到下一个token
+ * {@link org.apache.lucene.analysis.TokenStream#incrementToken()}
  *
+ * 流结束调用
+ * {@link org.apache.lucene.analysis.TokenStream#end()}
+ *
+ * 重置流，在 incrementToken 开始前调用
+ * {@link org.apache.lucene.analysis.TokenStream#reset()}
  * @author com.lioyan
  * @since 2023/7/18  11:53
  */
