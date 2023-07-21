@@ -9,7 +9,7 @@ import org.apache.lucene.codecs.lucene87.Lucene87StoredFieldsFormat;
  * {@link org.apache.lucene.index.DefaultIndexingChain}
  * 用于处理具体某一个段文档的所有数据
  * 初始化的时候创建一下对象
- * 1、 {@link org.apache.lucene.index.StoredFieldsConsumer} 包含code 对象，见 {@link Lucene87Codec}
+ * 1、 {@link org.apache.lucene.index.StoredFieldsConsumer} 包含code 对象，见 {@link Lucene87Codec}(所有段，为同一个 Lucene87Codec)
  *     可以创建 {@link Lucene87StoredFieldsFormat}  找到 {@link CompressingStoredFieldsWriter}
  *
  *
