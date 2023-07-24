@@ -36,32 +36,8 @@ public class DocValueTest
         throws IOException
     {
         //addValue();
-        tremQuert();
+        boolQuert();
 
-        //        // 3. search
-        //        int hitsPerPage = 10;
-        //        IndexReader reader = DirectoryReader.open(directory);
-        //        IndexSearcher searcher = new IndexSearcher(reader);
-        //        List<LeafReaderContext> leaves = reader.getContext().leaves();
-        //
-        //        Weight weight = q.createWeight(searcher, ScoreMode.COMPLETE_NO_SCORES, 1);
-        //        //        weight.scorer(reader.getContext());
-        //        //        weight.
-        //
-        //        for (LeafReaderContext leaf : leaves)
-        //        {
-        //            Scorer scorer = weight.scorer(leaf);
-        //            if (scorer == null)
-        //            {
-        //                continue;
-        //            }
-        //            DocIdSetIterator iterator = scorer.iterator();
-        //            int doc;
-        //            while ((doc = iterator.nextDoc()) != DocIdSetIterator.NO_MORE_DOCS)
-        //            {
-        //                System.out.println(doc);
-        //            }
-        //        }
     }
 
     private static void addValue()
@@ -180,18 +156,18 @@ public class DocValueTest
         throws IOException
     {
         long startTime = System.currentTimeMillis();
-        Sort sort = new Sort();
+        Sort sort = new Sort(new SortField("visit", SortField.Type.LONG, true));
         Directory directory = FSDirectory.open(Paths.get("tempPath"));
 
         IndexReader reader = DirectoryReader.open(directory);
         IndexSearcher searcher = new IndexSearcher(reader);
 
         Query q = NumericDocValuesField.newSlowRangeQuery("visit", 32, 66);
-        Query q2 = NumericDocValuesField.newSlowRangeQuery("visit", 45, 66);
+        Query q2 = NumericDocValuesField.newSlowRangeQuery("visit", 1, 66);
         BooleanQuery.Builder b = new BooleanQuery.Builder();
         b.add(q, BooleanClause.Occur.MUST);
         b.add(q2, BooleanClause.Occur.MUST);
-        b.setMinimumNumberShouldMatch(1);
+        b.setMinimumNumberShouldMatch(0);
         BooleanQuery query = b.build();
 
         TopFieldDocs search = searcher.search(query, 10, sort);
@@ -206,5 +182,35 @@ public class DocValueTest
         }
         System.out.println("查询时间：" + (System.currentTimeMillis() - startTime));
 
+    }
+
+    private static void leafSearch()
+        throws IOException
+    {
+        Directory directory = FSDirectory.open(Paths.get("tempPath"));
+        // 3. search
+        int hitsPerPage = 10;
+        IndexReader reader = DirectoryReader.open(directory);
+        IndexSearcher searcher = new IndexSearcher(reader);
+        List<LeafReaderContext> leaves = reader.getContext().leaves();
+        Query q = NumericDocValuesField.newSlowRangeQuery("visit", 32, 66);
+        Weight weight = q.createWeight(searcher, ScoreMode.COMPLETE_NO_SCORES, 1);
+        //        weight.scorer(reader.getContext());
+        //        weight.
+
+        for (LeafReaderContext leaf : leaves)
+        {
+            Scorer scorer = weight.scorer(leaf);
+            if (scorer == null)
+            {
+                continue;
+            }
+            DocIdSetIterator iterator = scorer.iterator();
+            int doc;
+            while ((doc = iterator.nextDoc()) != DocIdSetIterator.NO_MORE_DOCS)
+            {
+                System.out.println(doc);
+            }
+        }
     }
 }
