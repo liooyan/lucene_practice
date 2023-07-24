@@ -2,7 +2,7 @@ package cn.lioyan.search;
 
 /**
  * {@link org.apache.lucene.search.Query}
- * 查询的基本抽象类
+ * 查询的基本抽象类，通过创建 Weight 来获取 Scorer。
  *
  *
  *
