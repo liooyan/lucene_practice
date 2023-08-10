@@ -163,7 +163,7 @@ public class DocValueTest
         IndexSearcher searcher = new IndexSearcher(reader);
 
         Query q = NumericDocValuesField.newSlowRangeQuery("visit", 32, 66);
-        Query q2 = NumericDocValuesField.newSlowRangeQuery("visit", 1, 66);
+        Query q2 = new TermQuery(new Term("isbn", "fdsjfa2313"));
         BooleanQuery.Builder b = new BooleanQuery.Builder();
         b.add(q, BooleanClause.Occur.MUST);
         b.add(q2, BooleanClause.Occur.MUST);
